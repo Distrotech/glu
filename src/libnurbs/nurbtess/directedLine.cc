@@ -309,6 +309,8 @@ directedLine::directedLine()
   nextPolygon = NULL;
   rootBit = 0;/*important to initilzae to 0 meaning not root yet*/
   rootLink = NULL;
+  direction = INCREASING;
+  sline = NULL;
 }
 
 directedLine::~directedLine()
@@ -800,7 +802,7 @@ directedLine* readAllPolygons(char* filename)
     {
       Int nEdges;
       fscanf(fp, "%i", &nEdges);
-      Real vert[2][2];
+      Real vert[2][2] = { { 0 } };
       Real VV[2][2];
       /*the first two vertices*/
       fscanf(fp, "%f", &(vert[0][0]));
