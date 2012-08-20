@@ -47,9 +47,26 @@ m4_ifndef([PKG_PROG_PKG_CONFIG],
   ACLOCAL="aclocal -I/other/macro/dir" before running autoreconf.])])
 PKG_PROG_PKG_CONFIG()
 
-dnl Get the pkg-config definitions for libGL.  We include a fallback
-dnl path for GL implementation that don't provide a .pc file
-PKG_CHECK_MODULES(GL, [gl], [], [
+AC_ARG_ENABLE(osmesa,
+              AS_HELP_STRING([--enable-osmesa],
+                [Enable use of OSMesa instead of libGL]),
+              [OSMESA="$enableval"],
+              [OSMESA=no])
+
+dnl Get the pkg-config definitions for libGL/OSMesa.  We include a fallback
+dnl path for implementations that don't provide a .pc file
+if test "x$OSMESA" = "xyes"; then
+    PKG_CHECK_MODULES(OSMESA, [osmesa], [], [
+          AC_CHECK_HEADER([GL/osmesa.h],
+                  [],
+                  AC_MSG_ERROR([OSMesa not found]))
+          AC_CHECK_LIB([OSMesa],
+                   [glBegin],
+                   [OSMESA_LIBS=-lOSMesa],
+                   AC_MSG_ERROR([OSMesa required]))
+          ])
+else
+    PKG_CHECK_MODULES(GL, [gl], [], [
           AC_CHECK_HEADER([GL/gl.h],
                   [],
                   AC_MSG_ERROR([GL not found]))
@@ -58,6 +75,7 @@ PKG_CHECK_MODULES(GL, [gl], [], [
                    [GL_LIBS=-lGL],
                    AC_MSG_ERROR([GL required]))
           ])
+fi
 
 dnl Set up C warning flags.
 if test "x$GCC" = xyes; then
