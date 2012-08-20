@@ -61,14 +61,19 @@ PKG_CHECK_MODULES(GL, [gl], [], [
 
 dnl Set up C warning flags.
 if test "x$GCC" = xyes; then
-    CFLAGS="$CFLAGS -Wall"
-    CXXFLAGS="$CXXFLAGS -Wall"
+    WARNCFLAGS="-Wall"
+    if test "x$GXX" = xyes; then
+        WARNCXXFLAGS="-Wall"
+    fi
 else
     AC_CHECK_DECL([__SUNPRO_C], [SUNCC="yes"], [SUNCC="no"])
     if test "x$SUNCC" = "xyes"; then
-        WARNFLAGS="-v"
+        WARNCFLAGS="-v"
+        WARNCXXFLAGS="-v"
     fi
 fi
+AC_SUBST([WARNCFLAGS])
+AC_SUBST([WARNCXXFLAGS])
 
 AC_OUTPUT([
     Makefile

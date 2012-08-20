@@ -30,6 +30,8 @@ AM_CPPFLAGS = -DLIBRARYBUILD \
 	-I$(top_srcdir)/src/libnurbs/internals \
 	-I$(top_srcdir)/src/libnurbs/interface \
 	-I$(top_srcdir)/src/libnurbs/nurbtess
+AM_CFLAGS = $(GL_CFLAGS) $(WARNCFLAGS)
+AM_CXXFLAGS = $(GL_CFLAGS) $(WARNCXXFLAGS)
 
 GLU_LIBRARY_VERSION=1:3:1
 lib_LTLIBRARIES = libGLU.la
@@ -123,6 +125,5 @@ libGLU_la_SOURCES =						\
 	src/libnurbs/nurbtess/sampleMonoPoly.cc			\
 	src/libnurbs/nurbtess/sampledLine.cc			\
 	src/libnurbs/nurbtess/searchTree.cc
-libGLU_la_CFLAGS = $(GL_CFLAGS)
 libGLU_la_LIBADD = $(GL_LIBS)
 libGLU_la_LDFLAGS = -version-number $(GLU_LIBRARY_VERSION) -no-undefined -export-symbols-regex '^glu'
