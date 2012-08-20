@@ -28,11 +28,13 @@ AC_CANONICAL_HOST
 
 AM_INIT_AUTOMAKE([dist-bzip2 foreign subdir-objects])
 
+LT_PREREQ([2.2])
+LT_INIT
+
 dnl Check for progs
 AC_PROG_CPP
 AC_PROG_CC
 AC_PROG_CXX
-AC_PROG_LIBTOOL
 
 dnl Enable quiet compiles on automake 1.11.
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
