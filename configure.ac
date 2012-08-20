@@ -68,7 +68,7 @@ else
     fi
 fi
 
-AC_CONFIG_FILES([glu.pc])
 AC_OUTPUT([
     Makefile
+    glu.pc
 ])
