@@ -22,7 +22,7 @@
 AC_PREREQ([2.60])
 AC_INIT([glu],
         [1.3.1],
-        [https://bugs.freedesktop.org/enter_bug.cgi?product=Mesa])
+        [https://bugs.freedesktop.org/enter_bug.cgi?product=Mesa&component=GLU])
 AC_CONFIG_SRCDIR([Makefile.am])
 AC_CANONICAL_HOST
 
