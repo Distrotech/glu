@@ -77,11 +77,36 @@ else
           ])
 fi
 
-dnl Set up C warning flags.
+dnl Set up C warning and visibility flags.
 if test "x$GCC" = xyes; then
     WARNCFLAGS="-Wall"
+
+    # Enable -fvisibility=hidden if using a gcc that supports it
+    save_CFLAGS="$CFLAGS"
+    AC_MSG_CHECKING([whether $CC supports -fvisibility=hidden])
+    VISIBILITY_CFLAGS="-fvisibility=hidden"
+    CFLAGS="$CFLAGS $VISIBILITY_CFLAGS"
+    AC_LINK_IFELSE([AC_LANG_PROGRAM()], AC_MSG_RESULT([yes]),
+		   [VISIBILITY_CFLAGS=""; AC_MSG_RESULT([no])]);
+
+    # Restore CFLAGS; VISIBILITY_CFLAGS are added to it where needed.
+    CFLAGS=$save_CFLAGS
+
     if test "x$GXX" = xyes; then
         WARNCXXFLAGS="-Wall"
+
+        # Enable -fvisibility=hidden if using a gcc that supports it
+        save_CXXFLAGS="$CXXFLAGS"
+        AC_MSG_CHECKING([whether $CXX supports -fvisibility=hidden])
+        VISIBILITY_CXXFLAGS="-fvisibility=hidden"
+        CXXFLAGS="$CXXFLAGS $VISIBILITY_CXXFLAGS"
+	AC_LANG_PUSH([C++])
+        AC_LINK_IFELSE([AC_LANG_PROGRAM()], AC_MSG_RESULT([yes]),
+		       [VISIBILITY_CXXFLAGS=""; AC_MSG_RESULT([no])]);
+        AC_LANG_POP([C++])
+
+        # Restore CXXFLAGS; VISIBILITY_CXXFLAGS are added to it where needed.
+        CXXFLAGS=$save_CXXFLAGS
     fi
 else
     AC_CHECK_DECL([__SUNPRO_C], [SUNCC="yes"], [SUNCC="no"])
@@ -92,6 +117,8 @@ else
 fi
 AC_SUBST([WARNCFLAGS])
 AC_SUBST([WARNCXXFLAGS])
+AC_SUBST([VISIBILITY_CFLAGS])
+AC_SUBST([VISIBILITY_CXXFLAGS])
 
 AC_OUTPUT([
     Makefile
