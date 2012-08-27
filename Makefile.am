@@ -33,6 +33,11 @@ AM_CPPFLAGS = -DLIBRARYBUILD \
 AM_CFLAGS = $(GL_CFLAGS) $(OSMESA_CFLAGS) $(WARNCFLAGS) $(VISIBILITY_CFLAGS)
 AM_CXXFLAGS = $(GL_CFLAGS) $(OSMESA_CFLAGS) $(WARNCXXFLAGS) $(VISIBILITY_CXXFLAGS)
 
+GL_includedir = $(includedir)/GL
+GL_include_HEADERS = \
+	$(top_srcdir)/include/GL/glu.h \
+	$(top_srcdir)/include/GL/glu_mangle.h
+
 GLU_LIBRARY_VERSION=1:3:1
 lib_LTLIBRARIES = libGLU.la
 libGLU_la_SOURCES =						\
@@ -127,3 +132,108 @@ libGLU_la_SOURCES =						\
 	src/libnurbs/nurbtess/searchTree.cc
 libGLU_la_LIBADD = $(GL_LIBS) $(OSMESA_LIBS)
 libGLU_la_LDFLAGS = -version-number $(GLU_LIBRARY_VERSION) -no-undefined -export-symbols-regex '^glu'
+
+EXTRA_DIST =							\
+	include/GL/glu.h					\
+	include/GL/glu_mangle.h					\
+	src/libtess/render.h					\
+	src/libtess/tessmono.h					\
+	src/libtess/mesh.h					\
+	src/libtess/sweep.h					\
+	src/libtess/priorityq-sort.h				\
+	src/libtess/priorityq.h					\
+	src/libtess/dict-list.h					\
+	src/libtess/geom.h					\
+	src/libtess/dict.h					\
+	src/libtess/priorityq-heap.c				\
+	src/libtess/priorityq-heap.h				\
+	src/libtess/memalloc.h					\
+	src/libtess/normal.h					\
+	src/libtess/tess.h					\
+	src/libnurbs/interface/bezierPatchMesh.h		\
+	src/libnurbs/interface/mystdlib.h			\
+	src/libnurbs/interface/bezierPatch.h			\
+	src/libnurbs/interface/glimports.h			\
+	src/libnurbs/interface/glrenderer.h			\
+	src/libnurbs/interface/bezierEval.h			\
+	src/libnurbs/interface/glsurfeval.h			\
+	src/libnurbs/interface/mystdio.h			\
+	src/libnurbs/interface/glcurveval.h			\
+	src/libnurbs/internals/types.h				\
+	src/libnurbs/internals/arctess.h			\
+	src/libnurbs/internals/sorter.h				\
+	src/libnurbs/internals/displaymode.h			\
+	src/libnurbs/internals/patch.h				\
+	src/libnurbs/internals/monotonizer.h			\
+	src/libnurbs/internals/mymath.h				\
+	src/libnurbs/internals/flist.h				\
+	src/libnurbs/internals/jarcloc.h			\
+	src/libnurbs/internals/subdivider.h			\
+	src/libnurbs/internals/gridtrimvertex.h			\
+	src/libnurbs/internals/arc.h				\
+	src/libnurbs/internals/gridline.h			\
+	src/libnurbs/internals/bezierarc.h			\
+	src/libnurbs/internals/curvelist.h			\
+	src/libnurbs/internals/hull.h				\
+	src/libnurbs/internals/patchlist.h			\
+	src/libnurbs/internals/cachingeval.h			\
+	src/libnurbs/internals/maplist.h			\
+	src/libnurbs/internals/trimline.h			\
+	src/libnurbs/internals/quilt.h				\
+	src/libnurbs/internals/renderhints.h			\
+	src/libnurbs/internals/gridvertex.h			\
+	src/libnurbs/internals/arcsorter.h			\
+	src/libnurbs/internals/nurbsconsts.h			\
+	src/libnurbs/internals/pwlarc.h				\
+	src/libnurbs/internals/basiccrveval.h			\
+	src/libnurbs/internals/trimregion.h			\
+	src/libnurbs/internals/flistsorter.h			\
+	src/libnurbs/internals/dataTransform.h			\
+	src/libnurbs/internals/uarray.h				\
+	src/libnurbs/internals/backend.h			\
+	src/libnurbs/internals/coveandtiler.h			\
+	src/libnurbs/internals/mystring.h			\
+	src/libnurbs/internals/nurbstess.h			\
+	src/libnurbs/internals/reader.h				\
+	src/libnurbs/internals/knotvector.h			\
+	src/libnurbs/internals/slicer.h				\
+	src/libnurbs/internals/varray.h				\
+	src/libnurbs/internals/mysetjmp.h			\
+	src/libnurbs/internals/myassert.h			\
+	src/libnurbs/internals/trimvertpool.h			\
+	src/libnurbs/internals/simplemath.h			\
+	src/libnurbs/internals/mapdesc.h			\
+	src/libnurbs/internals/displaylist.h			\
+	src/libnurbs/internals/curve.h				\
+	src/libnurbs/internals/mesher.h				\
+	src/libnurbs/internals/bufpool.h			\
+	src/libnurbs/internals/basicsurfeval.h			\
+	src/libnurbs/internals/defines.h			\
+	src/libnurbs/internals/trimvertex.h			\
+	src/libnurbs/internals/bin.h				\
+	src/libnurbs/nurbtess/sampleComp.h			\
+	src/libnurbs/nurbtess/sampledLine.h			\
+	src/libnurbs/nurbtess/sampleMonoPoly.h			\
+	src/libnurbs/nurbtess/primitiveStream.h			\
+	src/libnurbs/nurbtess/mystdlib.h			\
+	src/libnurbs/nurbtess/partitionY.h			\
+	src/libnurbs/nurbtess/polyUtil.h			\
+	src/libnurbs/nurbtess/glimports.h			\
+	src/libnurbs/nurbtess/searchTree.h			\
+	src/libnurbs/nurbtess/quicksort.h			\
+	src/libnurbs/nurbtess/directedLine.h			\
+	src/libnurbs/nurbtess/monoPolyPart.h			\
+	src/libnurbs/nurbtess/zlassert.h			\
+	src/libnurbs/nurbtess/rectBlock.h			\
+	src/libnurbs/nurbtess/monoChain.h			\
+	src/libnurbs/nurbtess/sampleCompTop.h			\
+	src/libnurbs/nurbtess/polyDBG.h				\
+	src/libnurbs/nurbtess/sampleCompRight.h			\
+	src/libnurbs/nurbtess/sampleCompBot.h			\
+	src/libnurbs/nurbtess/monoTriangulation.h		\
+	src/libnurbs/nurbtess/definitions.h			\
+	src/libnurbs/nurbtess/mystdio.h				\
+	src/libnurbs/nurbtess/gridWrap.h			\
+	src/libnurbs/nurbtess/partitionX.h			\
+	src/include/gluos.h					\
+	src/libutil/gluint.h
