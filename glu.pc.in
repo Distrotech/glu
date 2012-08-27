@@ -1,13 +1,11 @@
-prefix=@INSTALL_DIR@
+prefix=@prefix@
 exec_prefix=${prefix}
-libdir=@INSTALL_LIB_DIR@
-includedir=@INSTALL_INC_DIR@
+libdir=@libdir@
+includedir=@includedir@
 
 Name: glu
 Description: Mesa OpenGL Utility library
-Requires: @GLU_PC_REQ@
-Requires.private: @GLU_PC_REQ_PRIV@
+Requires: gl
 Version: @VERSION@
-Libs: -L${libdir} -l@GLU_LIB@
-Libs.private: @GLU_PC_LIB_PRIV@
-Cflags: -I${includedir} @GLU_PC_CFLAGS@
+Libs: -L${libdir} -lGLU
+Libs.private: -lm
