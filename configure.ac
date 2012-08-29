@@ -39,6 +39,13 @@ AC_PROG_CXX
 dnl Enable quiet compiles on automake 1.11.
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
+AC_ARG_ENABLE(debug,
+              AS_HELP_STRING([--enable-debug],
+                [Enable debugging information]),
+              [CFLAGS="$CFLAGS -g -O0"
+               CXXFLAGS="$CXXFLAGS -g -O0"],
+              [])
+
 dnl Make sure the pkg-config macros are defined
 m4_ifndef([PKG_PROG_PKG_CONFIG],
     [m4_fatal([Could not locate the pkg-config autoconf macros.
