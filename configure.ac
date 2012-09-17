@@ -64,9 +64,6 @@ dnl Get the pkg-config definitions for libGL/OSMesa.  We include a fallback
 dnl path for implementations that don't provide a .pc file
 if test "x$OSMESA" = "xyes"; then
     PKG_CHECK_MODULES(OSMESA, [osmesa], [], [
-          AC_CHECK_HEADER([GL/osmesa.h],
-                  [],
-                  AC_MSG_ERROR([OSMesa not found]))
           AC_CHECK_LIB([OSMesa],
                    [glBegin],
                    [OSMESA_LIBS=-lOSMesa],
