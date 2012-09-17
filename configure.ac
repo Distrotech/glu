@@ -63,6 +63,7 @@ AC_ARG_ENABLE(osmesa,
 dnl Get the pkg-config definitions for libGL/OSMesa.  We include a fallback
 dnl path for implementations that don't provide a .pc file
 if test "x$OSMESA" = "xyes"; then
+    GLU_REQUIRES="osmesa"
     PKG_CHECK_MODULES(OSMESA, [osmesa], [], [
           AC_CHECK_LIB([OSMesa],
                    [glBegin],
@@ -70,6 +71,7 @@ if test "x$OSMESA" = "xyes"; then
                    AC_MSG_ERROR([OSMesa required]))
           ])
 else
+    GLU_REQUIRES="gl"
     PKG_CHECK_MODULES(GL, [gl], [], [
           AC_CHECK_HEADER([GL/gl.h],
                   [],
@@ -80,6 +82,7 @@ else
                    AC_MSG_ERROR([GL required]))
           ])
 fi
+AC_SUBST([GLU_REQUIRES])
 
 dnl Set up C warning and visibility flags.
 if test "x$GCC" = xyes; then
